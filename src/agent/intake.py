@@ -68,7 +68,7 @@ def match_to_hpo(raw_term: str) -> Dict[str, str]:
 
 
 # ---------------------------------------------------------------------------
-# Desktop path: Ollama vision (Gemma 4 26B)
+# Desktop path: Ollama vision (Gemma 4 E4B)
 # ---------------------------------------------------------------------------
 
 def extract_phenotypes_from_image(image_path: str) -> List[Dict[str, str]]:

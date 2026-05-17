@@ -17,7 +17,7 @@ In resource-limited settings — rural hospitals, low-income country clinics, di
 
 A fully local clinical reasoning agent powered by Gemma 4. The doctor photographs a patient's clinical report on **any Android phone running Gemma**. Gemma 4 E2B (running on the phone via LiteRT) extracts phenotype terms from the image. Those phenotypes are sent over local WiFi to a **desktop/laptop** running Gemma 4 E4B via Ollama.
 
-The E4B model uses Gemma 4's **native function calling** to navigate a **55,000-node gene-disease knowledge graph** built from real ClinVar and HPO data — hopping from phenotype → disease → gene → variant nodes until it flags the most likely causal genetic variant.
+The E4B model uses Gemma 4's **native function calling** to navigate a **57,124-node gene-disease knowledge graph** built from real ClinVar and HPO data — hopping from phenotype → disease → gene → variant nodes until it flags the most likely causal genetic variant.
 
 Everything runs offline. Nothing leaves the building.
 
@@ -33,43 +33,15 @@ Everything runs offline. Nothing leaves the building.
 | Oligogenic | 10% | 0.192 | 25 | 9.5 | 3.0 | 3.17x |
 | Phenotype Mismatch | 40% | 0.441 | ~5 | 8.2 | 3.0 | 2.73x |
 
-Burden ratio = high-pathogenicity candidates a clinician must manually review divided by the agent\'s graph hops to reach the causal variant. Higher = greater reduction in cognitive load.
+Burden ratio = high-pathogenicity candidates a clinician must manually review divided by the agent's graph hops to reach the causal variant. Higher = greater reduction in cognitive load.
 
-*Zero-shot, no fine-tuning. Full benchmark log: 
-esults/baseline_e4b.json*
+*Zero-shot, no fine-tuning. Full benchmark log: [results/baseline_e4b.json](results/baseline_e4b.json)*
 
 ---
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        GENOPATH SYSTEM                          │
-├──────────────────────────┬──────────────────────────────────────┤
-│   PHONE (any Android     │   DESKTOP (4060 Ti 16GB VRAM)       │
-│   with Gemma support)    │   48GB RAM                          │
-│                          │                                      │
-│  ┌─────────────────┐     │  ┌─────────────────────────────────┐ │
-│  │ Gemma 4 E2B     │     │  │  Gemma 4 E4B via Ollama         │ │
-│  │ via LiteRT      │     │  │  Native function calling agent  │ │
-│  │                 │     │  └────────────┬────────────────────┘ │
-│  │ Input: photo of │     │               │ tool calls           │
-│  │ clinical report │     │  ┌────────────▼────────────────────┐ │
-│  │                 │     │  │  GenoPathEnvironment            │ │
-│  │ Output: list of │     │  │  (episode logic, rewards)       │ │
-│  │ phenotype terms │     │  └────────────┬────────────────────┘ │
-│  └────────┬────────┘     │               │ observations         │
-│           │ POST /intake │  ┌────────────▼────────────────────┐ │
-│           │ local WiFi   │  │  GenoPathGraph                  │ │
-│           └──────────────┼─▶│  55K nodes: HPO + ClinVar       │ │
-│                          │  └─────────────────────────────────┘ │
-│                          │                                      │
-│                          │  ┌─────────────────────────────────┐ │
-│                          │  │  Gradio UI                      │ │
-│                          │  │  Live trail + exclusion signals │ │
-│                          │  └─────────────────────────────────┘ │
-└──────────────────────────┴──────────────────────────────────────┘
-```
+![GenoPath Architecture](assets/architecture.png)
 
 This phone→desktop split keeps extraction on the edge (E2B / LiteRT) and complex reasoning on local compute (E4B / Ollama) — works with any Android phone that can run Gemma.
 
@@ -145,25 +117,13 @@ uvicorn src.server.intake_api:app --host 0.0.0.0 --port 8000
 ## Cognitive Load Analysis
 
 ```
-Task                | Avg candidates (path≥0.75) | Avg optimal hops | Ratio
-monogenic           |         18.3               |       6.2        |  2.95x
-oligogenic          |         31.7               |      11.4        |  2.78x
-phenotype_mismatch  |         23.1               |       8.8        |  2.63x
+Task                | Avg high-path candidates | Avg BFS hops to causal | Burden ratio
+monogenic           |          6.2             |          3.0           |    2.07x
+oligogenic          |          9.5             |          3.0           |    3.17x
+phenotype_mismatch  |          8.2             |          3.0           |    2.73x
 ```
 
-A clinician manually reviews ~18 high-risk candidates for a monogenic case. GenoPath: 6 hops.
-
----
-
-## Results
-
-**Zero-shot Gemma 4 E4B baseline:**
-
-| Task | Mean Score |
-|---|---|
-| monogenic | ~0.45 |
-| oligogenic | ~0.24 |
-| phenotype_mismatch | ~0.06 |
+A clinician manually reviews ~6 high-risk candidates for a monogenic case. GenoPath reaches the causal variant in 3 graph hops — a 2x reduction in cognitive load, zero-shot.
 
 ---
 

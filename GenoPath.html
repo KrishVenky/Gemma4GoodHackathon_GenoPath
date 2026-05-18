@@ -1112,7 +1112,7 @@ const NODE_RADIUS = {
   pathway:   11,
 };
 
-const HOST = 'http://localhost:8000';
+const HOST = window.location.origin;
 
 /* =====================================================================
    HEALTH / CONNECTION
@@ -1122,7 +1122,7 @@ async function checkHealth() {
   const label = document.getElementById('conn-label');
   const meta = document.getElementById('conn-meta');
   try {
-    const r = await fetch(HOST + '/health', { signal: AbortSignal.timeout(1500) });
+    const r = await fetch(HOST + '/health', { signal: AbortSignal.timeout(5000) });
     if (!r.ok) throw new Error('not ok');
     const data = await r.json();
     dot.className = 'dot online';
@@ -1141,6 +1141,7 @@ async function checkHealth() {
     }
     state.mode = 'live';
   } catch (e) {
+    if (state.running) return;
     dot.className = 'dot demo';
     label.textContent = 'Demo mode';
     meta.textContent = 'backend offline';

@@ -1,5 +1,7 @@
 # GenoPath: Offline Rare Disease Genomics Reasoning with Gemma 4
 
+*Gemma 4 E2B + E4B navigating a 57,000-node genomic knowledge graph — entirely offline, no internet, no cloud.*
+
 **Track:** Health & Sciences
 
 ---
@@ -75,6 +77,8 @@ Gemma 4 E4B uses this zero-shot to eliminate unlikely candidates — the kind of
 
 **E4B local deployment via Ollama** — Zero cloud dependency. The 4B model runs on consumer hardware, making the complete system viable in any clinic with a mid-range laptop.
 
+*This project is eligible for the LiteRT Special Track (E2B on-device inference via MediaPipe LLM Inference API) and the Ollama Special Track (E4B local deployment for graph navigation).*
+
 ---
 
 ## Results
@@ -117,6 +121,7 @@ The graph could also be extended with protein-protein interaction data (STRING d
 
 ## Links
 
-- **Code:** https://github.com/KrishVenky/GenoPath
-- **Demo:** https://krishvenky.github.io/GenoPath
-- **Video:** [YouTube link]
+- **Code:** https://github.com/KrishVenky/Gemma4GoodHackathon_GenoPath
+- **Demo:** https://krishvenky.github.io/Gemma4GoodHackathon_GenoPath/
+- **Pitch Video:** https://youtu.be/gHTaptzpteY
+- **Demo Video:** https://youtu.be/tOgWl8D1QSo

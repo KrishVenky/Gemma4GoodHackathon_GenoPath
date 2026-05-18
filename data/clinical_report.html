@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Clinical Report — GenoPath Demo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 11pt;
+    color: #111;
+    background: #fff;
+    padding: 48px 56px;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .hospital-header {
+    border-bottom: 3px solid #1a1a2e;
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  .hospital-name {
+    font-size: 15pt;
+    font-weight: bold;
+    color: #1a1a2e;
+    letter-spacing: 0.02em;
+  }
+  .hospital-sub {
+    font-size: 9pt;
+    color: #444;
+    margin-top: 3px;
+  }
+  .hospital-right {
+    text-align: right;
+    font-size: 8.5pt;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  /* Report title */
+  .report-title {
+    text-align: center;
+    font-size: 13pt;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 16px 0 14px;
+    color: #1a1a2e;
+  }
+
+  /* Patient info table */
+  .patient-table {
+    width: 100%;
+    border: 1.5px solid #1a1a2e;
+    border-collapse: collapse;
+    margin-bottom: 18px;
+    font-size: 9.5pt;
+  }
+  .patient-table td {
+    padding: 5px 10px;
+    border: 1px solid #bbb;
+  }
+  .patient-table td:first-child {
+    font-weight: bold;
+    background: #f0f2f8;
+    width: 22%;
+    color: #1a1a2e;
+  }
+
+  /* Section headers */
+  .section-header {
+    background: #1a1a2e;
+    color: #fff;
+    font-size: 9.5pt;
+    font-weight: bold;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    margin: 16px 0 8px;
+  }
+
+  /* Body text */
+  p {
+    font-size: 10.5pt;
+    line-height: 1.65;
+    margin-bottom: 8px;
+    text-align: justify;
+  }
+
+  /* Findings list */
+  .findings {
+    margin: 0 0 8px 0;
+    padding-left: 0;
+    list-style: none;
+  }
+  .findings li {
+    font-size: 10.5pt;
+    line-height: 1.65;
+    padding: 2px 0 2px 16px;
+    position: relative;
+  }
+  .findings li::before {
+    content: "•";
+    position: absolute;
+    left: 4px;
+    color: #1a1a2e;
+    font-weight: bold;
+  }
+
+  /* Investigations table */
+  .inv-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 10pt;
+    margin-bottom: 8px;
+  }
+  .inv-table tr {
+    border-bottom: 1px solid #ddd;
+  }
+  .inv-table td {
+    padding: 4px 8px;
+    vertical-align: top;
+  }
+  .inv-table td:first-child {
+    font-weight: bold;
+    width: 36%;
+    color: #1a1a2e;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 28px;
+    border-top: 1.5px solid #1a1a2e;
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 8pt;
+    color: #666;
+  }
+  .confidential {
+    text-align: center;
+    font-size: 8pt;
+    color: #888;
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  @media print {
+    body { padding: 32px 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hospital-header">
+  <div>
+    <div class="hospital-name">METROPOLITAN CHILDREN'S HOSPITAL</div>
+    <div class="hospital-sub">Department of Pediatric Neurology &amp; Clinical Genetics</div>
+    <div class="hospital-sub">123 Medical Center Drive · Tel: (555) 000-0000</div>
+  </div>
+  <div class="hospital-right">
+    Report Date: 2026-05-17<br>
+    Report No: PCN-2026-0483<br>
+    Page: 1 of 1
+  </div>
+</div>
+
+<!-- TITLE -->
+<div class="report-title">Pediatric Neurology — Clinical Summary</div>
+
+<!-- PATIENT INFO -->
+<table class="patient-table">
+  <tr>
+    <td>Patient Name</td>
+    <td>[REDACTED]</td>
+    <td style="font-weight:bold;background:#f0f2f8;width:18%;color:#1a1a2e">Date of Birth</td>
+    <td>[REDACTED]</td>
+  </tr>
+  <tr>
+    <td>MRN</td>
+    <td>[REDACTED]</td>
+    <td style="font-weight:bold;background:#f0f2f8;color:#1a1a2e">Age / Sex</td>
+    <td>14 months / Male</td>
+  </tr>
+  <tr>
+    <td>Date of Visit</td>
+    <td>2026-05-17</td>
+    <td style="font-weight:bold;background:#f0f2f8;color:#1a1a2e">Attending</td>
+    <td>[REDACTED]</td>
+  </tr>
+  <tr>
+    <td>Referral Source</td>
+    <td>Primary Care Physician</td>
+    <td style="font-weight:bold;background:#f0f2f8;color:#1a1a2e">Insurance</td>
+    <td>[REDACTED]</td>
+  </tr>
+</table>
+
+<!-- CHIEF COMPLAINT -->
+<div class="section-header">Chief Complaint</div>
+<p>Recurrent seizures and developmental regression since age 6 months.</p>
+
+<!-- HPI -->
+<div class="section-header">History of Present Illness</div>
+<p>This 14-month-old male presents with breakthrough seizures beginning at 6 months of age, initially triggered by fever but subsequently occurring without febrile illness. Parents report up to 8 seizure events per day, including myoclonic jerks and prolonged absence episodes unresponsive to current anticonvulsant therapy.</p>
+<p>Neurodevelopmental review reveals global developmental delay: the patient is not yet sitting independently, has no purposeful hand use, and has lost previously acquired social smiling (developmental regression). Hypotonia is noted by the primary care physician and confirmed on examination.</p>
+
+<!-- EXAMINATION -->
+<div class="section-header">Examination Findings</div>
+<ul class="findings">
+  <li>Generalized hypotonia with decreased deep tendon reflexes</li>
+  <li>Global developmental delay (gross motor, fine motor, language domains)</li>
+  <li>Developmental regression: loss of social milestones noted since 10 months</li>
+  <li>Seizures: myoclonic and tonic-clonic types observed in clinic</li>
+  <li>Autistic behavior: limited eye contact, absence of joint attention</li>
+  <li>Respiratory: occasional irregular breathing noted during post-ictal period</li>
+</ul>
+
+<!-- INVESTIGATIONS -->
+<div class="section-header">Investigations</div>
+<table class="inv-table">
+  <tr><td>EEG</td><td>Diffuse background slowing with multifocal epileptiform discharges</td></tr>
+  <tr><td>MRI Brain</td><td>Mild cerebral atrophy; no structural lesion identified</td></tr>
+  <tr><td>Metabolic Panel</td><td>Within normal limits</td></tr>
+  <tr><td>Chromosomal Microarray</td><td>Pending</td></tr>
+  <tr><td>Whole Exome Sequencing</td><td>Referral placed — results pending</td></tr>
+</table>
+
+<!-- IMPRESSION -->
+<div class="section-header">Impression</div>
+<p>Genetic epileptic encephalopathy, etiology under investigation. Clinical presentation is consistent with an early-onset epileptic encephalopathy syndrome. Differential includes SCN1A-related Dravet syndrome, CDKL5 deficiency disorder, and KCNQ2-related epilepsy.</p>
+
+<!-- PLAN -->
+<div class="section-header">Plan</div>
+<p>Continue levetiracetam at current dose. Add clobazam for myoclonic seizure control. Genetic counseling referral placed. Whole exome sequencing ordered to evaluate for pathogenic variant. Family counseled regarding seizure precautions and fever management protocol.</p>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span>Metropolitan Children's Hospital · PCN-2026-0483</span>
+  <span>Attending Physician: [REDACTED] · Electronically signed 2026-05-17</span>
+</div>
+<div class="confidential">CONFIDENTIAL — This document contains protected health information. Unauthorized disclosure is prohibited.</div>
+
+</body>
+</html>
